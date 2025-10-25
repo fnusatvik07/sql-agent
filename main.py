@@ -159,6 +159,18 @@ async def health():
         return {"status": "unhealthy", "error": str(e)}
 
 
+@app.get("/check")
+async def health():
+    """Check Github Actions"""
+    try:
+        db.run("SELECT 1;")
+        logger.info("✅ Health check OK")
+        return {"status": "healthy", "database": "connected"}
+    except Exception as e:
+        logger.error(f"❌ Health check failed: {e}")
+        return {"status": "unhealthy", "error": str(e)}
+
+
 # ─────────────────────────────
 # Run server
 # ─────────────────────────────

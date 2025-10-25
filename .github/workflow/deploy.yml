@@ -1,0 +1,45 @@
+name: Deploy to Render
+
+on:
+  push:
+    branches:
+      - main  # Trigger deployment when pushing to main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checkout the repo
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2️⃣ Set up Python (optional if you’re building Docker only)
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # 3️⃣ Install Render CLI
+      - name: Install Render CLI
+        run: |
+          curl -fsSL https://render.com/install.sh | bash
+          export PATH=$PATH:/root/.render/bin
+
+      # 4️⃣ Log in to Render
+      - name: Authenticate with Render
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+        run: |
+          echo "Logging in to Render..."
+          render services list --api-key $RENDER_API_KEY
+
+      # 5️⃣ Trigger deployment
+      - name: Deploy to Render
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+        run: |
+          echo "Triggering deployment..."
+          render deploy \
+            --api-key $RENDER_API_KEY \
+            --service-id ${{ secrets.RENDER_SERVICE_ID }}
