@@ -3,43 +3,37 @@ name: Deploy to Render
 on:
   push:
     branches:
-      - main  # Trigger deployment when pushing to main
+      - main  # Triggers deployment when pushing to main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout the repo
-      - name: Checkout code
+      # 1️⃣ Checkout the code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2️⃣ Set up Python (optional if you’re building Docker only)
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      # 3️⃣ Install Render CLI
+      # 2️⃣ Install Render CLI correctly
       - name: Install Render CLI
         run: |
-          curl -fsSL https://render.com/install.sh | bash
-          export PATH=$PATH:/root/.render/bin
+          curl -fsSL https://render.com/install.sh -o install.sh
+          bash install.sh
+          echo "/root/.render/bin" >> $GITHUB_PATH
 
-      # 4️⃣ Log in to Render
-      - name: Authenticate with Render
-        env:
-          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+      # 3️⃣ Verify the CLI is installed
+      - name: Verify Render CLI
         run: |
-          echo "Logging in to Render..."
-          render services list --api-key $RENDER_API_KEY
+          which render
+          render --version
 
-      # 5️⃣ Trigger deployment
+      # 4️⃣ Trigger deployment on Render
       - name: Deploy to Render
         env:
           RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
         run: |
-          echo "Triggering deployment..."
+          echo "Triggering deployment for service: $RENDER_SERVICE_ID"
           render deploy \
-            --api-key $RENDER_API_KEY \
-            --service-id ${{ secrets.RENDER_SERVICE_ID }}
+            --api-key "$RENDER_API_KEY" \
+            --service-id "$RENDER_SERVICE_ID"
