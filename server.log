@@ -1,0 +1,89 @@
+2025-10-25 11:06:43,873 | INFO | SQLChatServer | 🚀 Starting SQL Chat Server...
+2025-10-25 11:06:48,740 | INFO | SQLChatServer | ➡️ Incoming Request: GET http://0.0.0.0:8000/docs
+2025-10-25 11:06:48,741 | INFO | SQLChatServer | ✅ Completed GET http://0.0.0.0:8000/docs in 0.001s with status 200
+2025-10-25 11:06:48,813 | INFO | SQLChatServer | ➡️ Incoming Request: GET http://0.0.0.0:8000/openapi.json
+2025-10-25 11:06:48,815 | INFO | SQLChatServer | ✅ Completed GET http://0.0.0.0:8000/openapi.json in 0.001s with status 200
+2025-10-25 11:06:52,450 | INFO | SQLChatServer | ➡️ Incoming Request: GET http://0.0.0.0:8000/docs
+2025-10-25 11:06:52,450 | INFO | SQLChatServer | ✅ Completed GET http://0.0.0.0:8000/docs in 0.001s with status 200
+2025-10-25 11:06:52,476 | INFO | SQLChatServer | ➡️ Incoming Request: GET http://0.0.0.0:8000/openapi.json
+2025-10-25 11:06:52,476 | INFO | SQLChatServer | ✅ Completed GET http://0.0.0.0:8000/openapi.json in 0.0s with status 200
+2025-10-25 11:07:13,618 | INFO | SQLChatServer | ➡️ Incoming Request: POST http://0.0.0.0:8000/chat
+2025-10-25 11:07:13,619 | INFO | SQLChatServer | 🧠 New Chat Request: Which genre on average has the longest tracks?
+2025-10-25 11:07:14,153 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-25 11:07:14,163 | INFO | SQLChatServer | 🛠️ Tool Call: sql_db_list_tables | Input: {}
+2025-10-25 11:07:14,717 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-25 11:07:14,721 | INFO | SQLChatServer | 🛠️ Tool Call: sql_db_schema | Input: {'table_names': 'Genre,Track'}
+2025-10-25 11:07:15,789 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-25 11:07:15,794 | INFO | SQLChatServer | 🛠️ Tool Call: sql_db_query_checker | Input: {'query': 'SELECT g.Name AS Genre, AVG(t.Milliseconds) AS AvgTrackLength\nFROM Genre g\nJOIN Track t ON g.GenreId = t.GenreId\nGROUP BY g.GenreId\nORDER BY AvgTrackLength DESC\nLIMIT 1;'}
+2025-10-25 11:07:17,023 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-25 11:07:17,928 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-25 11:07:17,936 | INFO | SQLChatServer | 🛠️ Tool Call: sql_db_query | Input: {'query': 'SELECT g.Name AS Genre, AVG(t.Milliseconds) AS AvgTrackLength\nFROM Genre g\nJOIN Track t ON g.GenreId = t.GenreId\nGROUP BY g.GenreId\nORDER BY AvgTrackLength DESC\nLIMIT 1;'}
+2025-10-25 11:07:18,928 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-25 11:07:18,935 | INFO | SQLChatServer | ✅ Chat completed in 5.316s | Question: 'Which genre on average has the longest tracks?' | Answer: ''
+2025-10-25 11:07:18,937 | INFO | SQLChatServer | ✅ Completed POST http://0.0.0.0:8000/chat in 5.319s with status 200
+2025-10-25 11:09:02,915 | INFO | SQLChatServer | ➡️ Incoming Request: POST http://0.0.0.0:8000/chat
+2025-10-25 11:09:02,916 | INFO | SQLChatServer | 🧠 New Chat Request: How many customers are from Brazil?
+2025-10-25 11:09:03,720 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-25 11:09:03,734 | INFO | SQLChatServer | 🛠️ Tool Call: sql_db_list_tables | Input: {}
+2025-10-25 11:09:04,440 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-25 11:09:04,445 | INFO | SQLChatServer | 🛠️ Tool Call: sql_db_schema | Input: {'table_names': 'Customer'}
+2025-10-25 11:09:05,074 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-25 11:09:05,077 | INFO | SQLChatServer | 🛠️ Tool Call: sql_db_query_checker | Input: {'query': "SELECT COUNT(*) FROM Customer WHERE Country = 'Brazil';"}
+2025-10-25 11:09:05,835 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-25 11:09:06,395 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-25 11:09:06,397 | INFO | SQLChatServer | 🛠️ Tool Call: sql_db_query | Input: {'query': "SELECT COUNT(*) FROM Customer WHERE Country = 'Brazil';"}
+2025-10-25 11:09:06,935 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-25 11:09:06,940 | INFO | SQLChatServer | ✅ Chat completed in 4.024s | Question: 'How many customers are from Brazil?' | Answer: ''
+2025-10-25 11:09:06,941 | INFO | SQLChatServer | ✅ Completed POST http://0.0.0.0:8000/chat in 4.025s with status 200
+2025-10-25 11:10:56,791 | INFO | SQLChatServer | 🚀 Starting SQL Chat Server...
+2025-10-25 11:11:05,108 | INFO | SQLChatServer | ➡️ Incoming Request: GET http://0.0.0.0:8000/docs
+2025-10-25 11:11:05,109 | INFO | SQLChatServer | ✅ Completed GET http://0.0.0.0:8000/docs in 0.001s with status 200
+2025-10-25 11:11:05,143 | INFO | SQLChatServer | ➡️ Incoming Request: GET http://0.0.0.0:8000/openapi.json
+2025-10-25 11:11:05,145 | INFO | SQLChatServer | ✅ Completed GET http://0.0.0.0:8000/openapi.json in 0.002s with status 200
+2025-10-25 11:11:21,868 | INFO | SQLChatServer | ➡️ Incoming Request: POST http://0.0.0.0:8000/chat
+2025-10-25 11:11:21,868 | INFO | SQLChatServer | 🧠 New Chat Request: How many customers are from brazil?
+2025-10-25 11:11:22,722 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-25 11:11:22,735 | INFO | SQLChatServer | 🛠️ Tool Call: sql_db_list_tables | Input: {'tool_input': ''}
+2025-10-25 11:11:23,797 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-25 11:11:23,802 | INFO | SQLChatServer | 🛠️ Tool Call: sql_db_schema | Input: {'table_names': 'Customer'}
+2025-10-25 11:11:24,531 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-25 11:11:24,533 | INFO | SQLChatServer | 🛠️ Tool Call: sql_db_query_checker | Input: {'query': "SELECT COUNT(*) FROM Customer WHERE Country = 'Brazil';"}
+2025-10-25 11:11:25,300 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-25 11:11:26,111 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-25 11:11:26,118 | INFO | SQLChatServer | 🛠️ Tool Call: sql_db_query | Input: {'query': "SELECT COUNT(*) FROM Customer WHERE Country = 'Brazil';"}
+2025-10-25 11:11:26,507 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-25 11:11:26,516 | INFO | SQLChatServer | ✅ Answer generated in 4.648s | Q: 'How many customers are from brazil?' | A: ''
+2025-10-25 11:11:26,518 | INFO | SQLChatServer | ✅ Completed POST http://0.0.0.0:8000/chat in 4.651s with status 200
+2025-10-25 11:12:19,296 | INFO | SQLChatServer | 🚀 Starting LangChain SQL Chat Server...
+2025-10-25 11:12:27,372 | INFO | SQLChatServer | ➡️ GET http://0.0.0.0:8000/docs
+2025-10-25 11:12:27,373 | INFO | SQLChatServer | ✅ GET http://0.0.0.0:8000/docs completed in 0.001s with status 200
+2025-10-25 11:12:27,407 | INFO | SQLChatServer | ➡️ GET http://0.0.0.0:8000/openapi.json
+2025-10-25 11:12:27,409 | INFO | SQLChatServer | ✅ GET http://0.0.0.0:8000/openapi.json completed in 0.001s with status 200
+2025-10-25 11:12:33,915 | INFO | SQLChatServer | ➡️ POST http://0.0.0.0:8000/chat
+2025-10-25 11:12:33,916 | INFO | SQLChatServer | 🧠 Chat Request: How many customers are from brazil?
+2025-10-25 11:12:34,577 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-25 11:12:34,588 | INFO | SQLChatServer | 🛠️ Tool Call → sql_db_list_tables | Input: {}
+2025-10-25 11:12:35,359 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-25 11:12:35,361 | INFO | SQLChatServer | 🛠️ Tool Call → sql_db_schema | Input: {'table_names': 'Customer'}
+2025-10-25 11:12:36,324 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-25 11:12:36,329 | INFO | SQLChatServer | 🛠️ Tool Call → sql_db_query_checker | Input: {'query': "SELECT COUNT(*) AS brazil_customers FROM Customer WHERE Country = 'Brazil';"}
+2025-10-25 11:12:37,130 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-25 11:12:37,800 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-25 11:12:37,806 | INFO | SQLChatServer | 🛠️ Tool Call → sql_db_query | Input: {'query': "SELECT COUNT(*) AS brazil_customers FROM Customer WHERE Country = 'Brazil';"}
+2025-10-25 11:12:38,339 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-25 11:12:38,351 | INFO | SQLChatServer | ✅ Final Answer (4.435s): There are 5 customers from Brazil.
+2025-10-25 11:12:38,353 | INFO | SQLChatServer | ✅ POST http://0.0.0.0:8000/chat completed in 4.438s with status 200
+2025-10-25 11:12:59,111 | INFO | SQLChatServer | ➡️ POST http://0.0.0.0:8000/chat
+2025-10-25 11:12:59,112 | INFO | SQLChatServer | 🧠 Chat Request: Which genre on average has the longest tracks?
+2025-10-25 11:13:00,883 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-25 11:13:00,890 | INFO | SQLChatServer | 🛠️ Tool Call → sql_db_list_tables | Input: {}
+2025-10-25 11:13:01,555 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-25 11:13:01,564 | INFO | SQLChatServer | 🛠️ Tool Call → sql_db_schema | Input: {'table_names': 'Genre, Track'}
+2025-10-25 11:13:02,923 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-25 11:13:02,926 | INFO | SQLChatServer | 🛠️ Tool Call → sql_db_query_checker | Input: {'query': 'SELECT Genre.Name, AVG(Track.Milliseconds) AS AvgTrackLength\nFROM Genre\nJOIN Track ON Genre.GenreId = Track.GenreId\nGROUP BY Genre.GenreId\nORDER BY AvgTrackLength DESC\nLIMIT 1;'}
+2025-10-25 11:13:03,640 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-25 11:13:04,988 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-25 11:13:04,997 | INFO | SQLChatServer | 🛠️ Tool Call → sql_db_query | Input: {'query': 'SELECT Genre.Name, AVG(Track.Milliseconds) AS AvgTrackLength\nFROM Genre\nJOIN Track ON Genre.GenreId = Track.GenreId\nGROUP BY Genre.GenreId\nORDER BY AvgTrackLength DESC\nLIMIT 1;'}
+2025-10-25 11:13:05,673 | INFO | httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-10-25 11:13:05,678 | INFO | SQLChatServer | ✅ Final Answer (6.566s): The genre with the longest average track length is "Sci Fi & Fantasy," with an average track duration of approximately 2,911,783 milliseconds.
+2025-10-25 11:13:05,680 | INFO | SQLChatServer | ✅ POST http://0.0.0.0:8000/chat completed in 6.57s with status 200

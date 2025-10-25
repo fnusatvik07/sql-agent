@@ -1,0 +1,9 @@
+# Ignore local virtual environments and caches
+.venv
+__pycache__
+*.pyc
+*.log
+.env
+.git
+.gitignore
+.DS_Store
